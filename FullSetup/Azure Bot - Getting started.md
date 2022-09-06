@@ -170,15 +170,15 @@ You should see a response: "SearchForJobs trigger invoked"
 
 Voila!
 
-14. Create a web client
+14. Create a Web HTML client
 
-14.1. 
+14.1. Get Secret Key for Web Chat
 
-Get Secret Key for Web Chat:
 Azure Bot - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st key - Show - Copy the key
 
+12. Create a Bot Web cLient
 
-------
+Paste the copied Web Chat Secret Key as createDirectLie() parameter (see placeholder below)
 
 ```html
 <!DOCTYPE html>
@@ -223,4 +223,9 @@ Azure Bot - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st ke
 </html>
 ```
 
--------
+NB: passing the Web Chat Secret Key is just for demo purposes. In more production-ready setups it should be replaced with JWT token.
+
+14.2. Open the webpage in Browser
+
+Open the html page in browser. You should see a initial Greeting e.g. "Welcome to your bot."  
+Type: "find job" and press Enter. You should see a message: "SearchForJobs trigger invoked".  
