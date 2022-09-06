@@ -164,19 +164,17 @@ Finally the Status column value should be: Success
 
 13. Test the bot in Azure portal:
 
-Azure Portal Home page - Azure Bot Resource - (Settings) Test in Web Chat. You should see a message similar to: "Welcome to your bot." Type: "find job" phrase we have added on step 10.1
+Azure Portal Home page - Azure Bot Resource - (Settings) Test in Web Chat. You should see a message similar to: "Welcome to your bot." Type: "find job" phrase we have added on step '10.1. Add new trigger (On intent recognized)'.
 
 You should see a response: "SearchForJobs trigger invoked"
 
 Voila!
 
-14. Create a Web HTML client
+14. Create a Bot Web Client (HTML)
 
 14.1. Get Secret Key for Web Chat
 
-Azure Bot - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st key - Show - Copy the key
-
-12. Create a Bot Web cLient
+Azure Portal Home Page - Resource Group - Azure Bot resource - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st key - Show - Copy the key
 
 Paste the copied Web Chat Secret Key as createDirectLie() parameter (see placeholder below)
 
