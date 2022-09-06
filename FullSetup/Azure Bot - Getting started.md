@@ -108,6 +108,7 @@ Bot Framework Composer - (sidebar) Publish - Publishing profile tab - Add new - 
 
 In our case we haven't created applicationInsights, cosmosDb, blobStorage, qna - so we can remove them from the JSON (or we can leave them like that for future additions)
 
+```json
 {
   "name": "<azure-bot-resourece-name>",
   "environment": "dev",
@@ -151,6 +152,7 @@ In our case we haven't created applicationInsights, cosmosDb, blobStorage, qna -
     "MicrosoftAppPassword": "<app password copied on Microsoft App registration, remember: Azure Portal Home - Azure Active Directory - (Manage) App registrations - +New registration>"
   }
 }
+```
 
 Paste the JSON and click on Create
 
@@ -178,7 +180,7 @@ Azure Bot - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st ke
 
 ------
 
-
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -219,6 +221,6 @@ Azure Bot - (Settings) Channels - Web Chat - Default Site - Secret keys - 1st ke
     </script>
   </body>
 </html>
-
+```
 
 -------
