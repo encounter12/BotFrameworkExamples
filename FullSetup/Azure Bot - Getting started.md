@@ -54,11 +54,11 @@ Create the resources in the same resource group for the particular deployment en
 
 8. Create a bot (using Bot Framework Composer)
 
-Home - + Create New - Empty bot - Next - Setup name and choose a location - Create
+Bot Framework Composer - (sidebar) Home - + Create New - Empty bot - Next - Setup name and choose a location - Create
 
 9. Configure the bot
 
-Configure (wrench icon) - Development resources tab:
+Bot Framework Composer - (sidebar) Configure (wrench icon) - Development resources tab:
 
 9.1. Setup language understanding (LUIS)
 
