@@ -1,0 +1,8 @@
+{
+  "Empty.en-us": {
+    "rootDialog": true,
+    "triggers": {
+      "SearchForJobs": ""
+    }
+  }
+}
