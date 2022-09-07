@@ -1,0 +1,32 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "pIi0t0",
+    "name": "JustDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "VxgTOF"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "SsDdCj"
+          },
+          "activity": "${SendActivity_SsDdCj()}"
+        }
+      ]
+    }
+  ],
+  "generator": "JustDialog.lg",
+  "recognizer": "JustDialog.lu.qna",
+  "id": "JustDialog"
+}

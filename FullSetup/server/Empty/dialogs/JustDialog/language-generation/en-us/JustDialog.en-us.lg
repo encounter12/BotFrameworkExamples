@@ -1,0 +1,9 @@
+[import](common.lg)
+
+# SendActivity_SsDdCj()
+[Activity
+    Text = ${SendActivity_SsDdCj_text()}
+]
+
+# SendActivity_SsDdCj_text()
+- Hello World from JustDialog

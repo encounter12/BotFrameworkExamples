@@ -40,6 +40,14 @@
                     "name": "Send a response"
                   },
                   "activity": "${SendActivity_Greeting()}"
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "OjowYw"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "JustDialog"
                 }
               ]
             }
