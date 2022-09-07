@@ -26,6 +26,7 @@ function Get-LUModels
     foreach ($luModel in $crossTrainedLUModels) {
         # Load the dialog JSON and find the recognizer kind
         $luDialog = $luRecognizerDialogs | Where-Object { $_ -match "/$luModel.dialog" }
+        Write-Host "$sourceDirectory/$luDialog"
         $dialog = Get-Content -Path "$sourceDirectory/$luDialog" | ConvertFrom-Json
         $recognizerKind = ($dialog | Select -ExpandProperty "`$kind")
 
