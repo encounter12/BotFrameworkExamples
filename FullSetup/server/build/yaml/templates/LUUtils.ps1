@@ -15,18 +15,44 @@ function Get-LUModels
         [string] $sourceDirectory
     )
 
+    Write-Host "crossTrainedLUDirectory : $crossTrainedLUDirectory"
+    Write-Host "sourceDirectory : $sourceDirectory"
+
     # Get a list of the cross trained lu models to process
     $crossTrainedLUModels = Get-ChildItem -Path $crossTrainedLUDirectory -Filter "*.lu" -file -name
 
     # Get a list of all the dialog recognizers (exclude bin and obj just in case)
     $luRecognizerDialogs = Get-ChildItem -Path $sourceDirectory -Filter "*??-??.lu.dialog" -file -name -Recurse | Where-Object { $_ -notmatch '^bin*|^obj*' }
 
+    Write-Host "crossTrainedLUModels : $crossTrainedLUModels"
+    Write-Host "luRecognizerDialogs : $luRecognizerDialogs"
+        
     # Create a list of the models that match the given recognizer
     $luModels = @()
     foreach ($luModel in $crossTrainedLUModels) {
         # Load the dialog JSON and find the recognizer kind
         $luDialog = $luRecognizerDialogs | Where-Object { $_ -match "/$luModel.dialog" }
-        Write-Host "$sourceDirectory/$luDialog"
+
+        Write-Host "Source directory: $sourceDirectory"
+        Write-Host "Lu model: $luModel"
+        Write-Host "Lu dialog: $luDialog"
+        Write-Host "Lu dialog relative path: $sourceDirectory/$luDialog"
+
+        if ([string]::IsNullOrEmpty($luDialog))
+        {
+            continue
+        }
+
+        <#
+        if ([string]::IsNullOrEmpty($luDialog))
+        {
+            $errorMessage =
+                "Cross trained lu model: $luModel without lu recognizer dialog detected. The issue might be that you have removed a dialog, but it's folder and files are still present. If so, please delete them."
+            
+            throw $errorMessage
+        }
+        #>
+
         $dialog = Get-Content -Path "$sourceDirectory/$luDialog" | ConvertFrom-Json
         $recognizerKind = ($dialog | Select -ExpandProperty "`$kind")
 
