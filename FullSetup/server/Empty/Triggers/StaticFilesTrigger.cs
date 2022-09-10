@@ -24,7 +24,7 @@ namespace Empty.Triggers
         }
 
         [FunctionName("StaticFiles")]
-        public async Task<IActionResult> RunAsync(
+        public IActionResult RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "{*path}")] HttpRequest request,
             string path,
             ExecutionContext context)
