@@ -30,6 +30,7 @@ parameters:
   type: string
 
 steps:
+
 # Publish LUIS models if luisAuthoringKey is defined
 - task: PowerShell@2
   displayName: "Publish LUIS"

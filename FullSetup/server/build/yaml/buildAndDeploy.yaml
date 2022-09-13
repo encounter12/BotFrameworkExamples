@@ -158,6 +158,16 @@ stages:
   # - group: bot-dev-var-group
   dependsOn: BuildStage
   jobs:
+  - job: PrintSystemVariables
+    steps:
+    - task: PowerShell@2
+      displayName: "Print system variables"
+      inputs:
+      targetType: "inline"
+      script: |
+        Write-Host "Build.ArtifactStagingDirectory: $(Build.ArtifactStagingDirectory)"
+        Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+
   - deployment: DeployModels
     environment: bot-dev
     strategy: 
