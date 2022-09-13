@@ -48,5 +48,5 @@ New-LuConfigFile -luConfig $luConfigFile -luModels $models -path "."
 # Output the generated settings
 Get-Content $luConfigFile
 
-# Publish and tain LUIS models
+# Publish and train LUIS models
 bf luis:build --out $outputDirectory --authoringKey $authoringKey --region $authoringRegion --botName $botName --suffix composer --force --log --luConfig $luConfigFile

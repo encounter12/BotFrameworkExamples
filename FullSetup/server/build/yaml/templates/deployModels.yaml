@@ -1,4 +1,4 @@
-﻿# Copyright (c) Microsoft Corporation. All rights reserved.
+# Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 #
 # Builds, deploys and train language models (LUIS, QnA Maker and Orchestrator)
@@ -30,39 +30,6 @@ parameters:
   type: string
 
 steps:
-# Prepare working folders
-- task: PowerShell@2
-  displayName: "Prepare working folders"
-  inputs:
-    targetType: "inline"
-    script: |
-      $generatedDirectory = "${{ parameters.sourceDirectory }}/generated"
-      
-      # Clean and recreate the generated directory
-      if (Test-Path $generatedDirectory)
-      {
-        Remove-Item -Path $generatedDirectory -Force -Recurse
-      }
-
-      $outputDirectory = "$generatedDirectory/interruption"
-      New-Item -Path /. -name $outputDirectory -ItemType "directory"
-
-# Cross train LU models
-- task: PowerShell@2
-  displayName: "Cross train LU models"
-  inputs:
-    targetType: "inline"
-    script: |
-      $sourceDirectory = "${{ parameters.sourceDirectory }}"
-      $outputDirectory = "${{ parameters.sourceDirectory }}/generated/interruption"
-
-      # Cross train models
-      bf luis:cross-train --in $sourceDirectory --out $outputDirectory --config $sourceDirectory/settings/cross-train.config.json --force
-
-      # List generated files
-      cd $outputDirectory
-      ls -R
-
 # Publish LUIS models if luisAuthoringKey is defined
 - task: PowerShell@2
   displayName: "Publish LUIS"
@@ -98,20 +65,3 @@ steps:
     # Note: the working directory needs to be set to the bot's source directory
     # to allow for the creation of relative paths in the generated config files.
     workingDirectory: ${{ parameters.sourceDirectory }}
-
-# Compress generated folder
-- task: ArchiveFiles@2
-  displayName: "Compress generated files"
-  inputs:
-    rootFolderOrFile: "${{ parameters.sourceDirectory }}/generated"
-    includeRootFolder: true
-    archiveType: "zip"
-    archiveFile: "$(System.DefaultWorkingDirectory)/output/generated.zip"
-    verbose: true
-
-# Publish output artifacts to Azure DevOps
-- task: PublishBuildArtifacts@1
-  displayName: "Publish generated artifacts"
-  inputs:
-    pathtoPublish: "$(System.DefaultWorkingDirectory)/output/generated.zip" 
-    artifactName: "BuildArtifacts-$(Build.BuildId)"

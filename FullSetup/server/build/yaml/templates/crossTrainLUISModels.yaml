@@ -1,0 +1,64 @@
+﻿# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+#
+# Builds, deploys and train language models (LUIS, QnA Maker and Orchestrator)
+#
+
+parameters:
+- name: sourceDirectory
+  displayName: Directory to the source code in the build pipeline
+  type: string
+
+- name: yamlDirectory
+  displayName: Directory to the yaml files in the build pipeline
+  type: string
+
+- name: botName
+  displayName: Bot name
+  type: string
+
+- name: luisAuthoringKey
+  displayName: LUIS authoring key
+  type: string
+
+- name: luisAuthoringRegion
+  displayName: LUIS authoring region
+  type: string
+
+- name: qnaSubscriptionKey
+  displayName: QnA Maker subscription key
+  type: string
+
+steps:
+# Prepare working folders
+- task: PowerShell@2
+  displayName: "Prepare working folders"
+  inputs:
+    targetType: "inline"
+    script: |
+      $generatedDirectory = "${{ parameters.sourceDirectory }}/generated"
+      
+      # Clean and recreate the generated directory
+      if (Test-Path $generatedDirectory)
+      {
+        Remove-Item -Path $generatedDirectory -Force -Recurse
+      }
+
+      $outputDirectory = "$generatedDirectory/interruption"
+      New-Item -Path /. -name $outputDirectory -ItemType "directory"
+
+# Cross train LU models
+- task: PowerShell@2
+  displayName: "Cross train LU models"
+  inputs:
+    targetType: "inline"
+    script: |
+      $sourceDirectory = "${{ parameters.sourceDirectory }}"
+      $outputDirectory = "${{ parameters.sourceDirectory }}/generated/interruption"
+
+      # Cross train models
+      bf luis:cross-train --in $sourceDirectory --out $outputDirectory --config $sourceDirectory/settings/cross-train.config.json --force
+
+      # List generated files
+      cd $outputDirectory
+      ls -R
