@@ -166,8 +166,8 @@ stages:
           steps:
           - template: templates/deployModels.yaml
             parameters:
-              sourceDirectory: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}"
-              yamlDirectory: "$(System.DefaultWorkingDirectory)/${{ parameters.buildYamlDirectory }}"
+              sourceDirectory: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}"
+              yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
               botName: "${{ parameters.botName }}"
               luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
               luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
@@ -184,7 +184,7 @@ stages:
               azureServiceConnection: "${{ parameters.azureServiceConnection }}"
               functionAppName: "${{ parameters.functionAppName }}"
               resourceGroupName: "${{ parameters.resourceGroupName }}"
-              botProjectFile: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
+              botProjectFile: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
               botName: "${{ parameters.botName }}"
               microsoftAppId: "${{ parameters.microsoftAppId }}"
               microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
