@@ -114,7 +114,6 @@ stages:
 - stage: BuildStage
   jobs:
   - job: buildApps
-    dependsOn: installPrerequisitesJob
     steps:
     - template: templates/installPrerequisites.yaml
     - template: templates/crossTrainLUISModels.yaml
