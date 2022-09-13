@@ -113,12 +113,10 @@ parameters:
 stages:
 - stage: BuildStage
   jobs:
-  - job: installPrerequisitesJob
-    steps:
-    - template: templates/installPrerequisites.yaml
   - job: buildApps
     dependsOn: installPrerequisitesJob
     steps:
+    - template: templates/installPrerequisites.yaml
     - template: templates/crossTrainLUISModels.yaml
       parameters:
         sourceDirectory: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}"
