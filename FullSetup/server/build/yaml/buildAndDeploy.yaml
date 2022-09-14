@@ -243,8 +243,8 @@ stages:
           - task: DownloadPipelineArtifact@2
             displayName: 'Download Build Artifacts'
             inputs:
-            patterns: '**/BuildArtifacts-$(Build.BuildId).zip'
-            path: '$(System.ArtifactsDirectory)'
+              patterns: '**/BuildArtifacts-$(Build.BuildId).zip'
+              path: '$(System.ArtifactsDirectory)'
           - task: ExtractFiles@1
             inputs:
               archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId).zip'
