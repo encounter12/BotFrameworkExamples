@@ -247,7 +247,7 @@ stages:
               path: '$(System.ArtifactsDirectory)'
           - task: ExtractFiles@1
             inputs:
-              archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId).zip'
+              archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
               destinationFolder: '$(System.ArtifactsDirectory)'
               cleanDestinationFolder: false
               overwriteExistingFiles: true 
