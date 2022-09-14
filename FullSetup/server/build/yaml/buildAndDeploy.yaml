@@ -202,7 +202,6 @@ stages:
           Write-Host "Build.SourceVersionMessage): $(Build.SourceVersionMessage)"
           Write-Host "Build.StagingDirectory: $(Build.StagingDirectory)"
           Write-Host "Build.Repository.Git.SubmoduleCheckout: $(Build.Repository.Git.SubmoduleCheckout)"
-          Write-Host "Build.SourceTfvcShelveset: $(Build.SourceTfvcShelveset)"
           Write-Host "Build.TriggeredBy.BuildId: $(Build.TriggeredBy.BuildId)"
           Write-Host "Build.TriggeredBy.DefinitionId: $(Build.TriggeredBy.DefinitionId)"
           Write-Host "Build.TriggeredBy.DefinitionName: $(Build.TriggeredBy.DefinitionName)"
