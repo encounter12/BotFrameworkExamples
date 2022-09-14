@@ -227,6 +227,8 @@ stages:
           Write-Host "System.TeamProjectId: $(System.TeamProjectId)"
           Write-Host "System.TimelineId: $(System.TimelineId)"
           Write-Host "TF_BUILD: $(TF_BUILD)"
+          Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
+          Get-ChildItem -Path $(Pipeline.Workspace) –Recurse
 
   - deployment: DeployModels
     dependsOn: PrintSystemVariables
