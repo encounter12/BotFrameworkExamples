@@ -228,6 +228,8 @@ stages:
           Write-Host "System.TeamProjectId: $(System.TeamProjectId)"
           Write-Host "System.TimelineId: $(System.TimelineId)"
           Write-Host "TF_BUILD: $(TF_BUILD)"
+          Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
+          Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
           Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
           Get-ChildItem -Path $(Pipeline.Workspace) –Recurse
 
@@ -238,14 +240,23 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: templates/deployModels.yaml
-            parameters:
-              sourceDirectory: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}"
-              yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
-              botName: "${{ parameters.botName }}"
-              luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
-              luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
-              qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
+            - task: PowerShell@2
+              displayName: "Print system variables"
+              inputs:
+                targetType: "inline"
+                script: |
+                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
+                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory) - with file names:"
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File
+            - template: templates/deployModels.yaml
+              parameters:
+                sourceDirectory: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}"
+                yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
+                botName: "${{ parameters.botName }}"
+                luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
+                luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
+                qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
   - deployment: DeployAzureFunctionApp
     environment: bot-dev
     dependsOn: DeployModels
