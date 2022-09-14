@@ -286,8 +286,7 @@ stages:
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory) - with file names:"
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse –File
-            - task: deployModels
-              template: templates/deployModels.yaml
+            - template: templates/deployModels.yaml
               parameters:
                 sourceDirectory: "$(System.ArtifactsDirectory)/drop/MyBot"
                 yamlDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.buildYamlDirectory }}"
@@ -295,8 +294,7 @@ stages:
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
                 luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
                 qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
-            - task: deployAzureFunctionApp
-              template: templates/deployAzureFunctionApp.yaml
+            - template: templates/deployAzureFunctionApp.yaml
               parameters:
                 azureServiceConnection: "${{ parameters.azureServiceConnection }}"
                 functionAppName: "${{ parameters.functionAppName }}"
