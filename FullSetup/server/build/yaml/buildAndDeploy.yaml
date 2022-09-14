@@ -202,7 +202,6 @@ stages:
           Write-Host "Build.SourceVersionMessage): $(Build.SourceVersionMessage)"
           Write-Host "Build.StagingDirectory: $(Build.StagingDirectory)"
           Write-Host "Build.Repository.Git.SubmoduleCheckout: $(Build.Repository.Git.SubmoduleCheckout)"
-          Write-Host "Checks.StageAttempt: $(Checks.StageAttempt)"
           Write-Host "Common.TestResultsDirectory: $(Common.TestResultsDirectory)"
           Write-Host "Environment.Name: $(Environment.Name)"
           Write-Host "Environment.Id: $(Environment.Id)"
