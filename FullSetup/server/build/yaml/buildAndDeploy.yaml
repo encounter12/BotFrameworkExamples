@@ -249,11 +249,11 @@ stages:
             - task: ExtractFiles@1
               inputs:
                 archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
-                destinationFolder: '$(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}'
+                destinationFolder: '$(System.ArtifactsDirectory)/drop'
                 cleanDestinationFolder: false
                 overwriteExistingFiles: true 
             - task: PowerShell@2
-              displayName: "Print system variables"
+              displayName: "Print system variables and folder contents"
               inputs:
                 targetType: "inline"
                 script: |
@@ -261,9 +261,17 @@ stages:
                   Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory) - with file names:"
                   Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File
+                  Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory):"
+                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse
+                  Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory) - with file names:"
+                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse –File
+                  Write-Host "Display the content of System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy:"
+                  Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" -Recurse
+                  Write-Host "Display the content of System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy - with file names:"
+                  Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" -Recurse –File
             - template: templates/deployModels.yaml
               parameters:
-                sourceDirectory: "$(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}"
+                sourceDirectory: "$(System.ArtifactsDirectory)/drop"
                 yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
                 botName: "${{ parameters.botName }}"
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"

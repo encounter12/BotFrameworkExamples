@@ -17,10 +17,6 @@ parameters:
   displayName: Resource group
   type: string
 
-- name: botProjectFile
-  displayName: Bot project to build and deploy
-  type: string
-
 - name: botName
   displayName: Bot name
   type: string
