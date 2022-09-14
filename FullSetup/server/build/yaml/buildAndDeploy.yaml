@@ -166,7 +166,6 @@ stages:
         targetType: "inline"
         script: |
           Write-Host "Agent.BuildDirectory: $(Agent.BuildDirectory)"
-          Write-Host "Pipeline.Workspace: $(Pipeline.Workspace)"
           Write-Host "Agent.HomeDirectory: $(Agent.HomeDirectory)"
           Write-Host "Agent.Id: $(Agent.Id)"
           Write-Host "Agent.JobStatus: $(Agent.JobStatus)"
