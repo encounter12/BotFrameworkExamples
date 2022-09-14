@@ -191,7 +191,6 @@ stages:
           Write-Host "Build.Repository.ID: $(Build.Repository.ID)"
           Write-Host "Build.Repository.Name: $(Build.Repository.Name)"
           Write-Host "Build.Repository.Provider: $(Build.Repository.Provider)"
-          Write-Host "Build.Repository.Tfvc.Workspace: $(Build.Repository.Tfvc.Workspace)"
           Write-Host "Build.Repository.Uri: $(Build.Repository.Uri)"
           Write-Host "Build.RequestedFor: $(Build.RequestedFor)"
           Write-Host "Build.RequestedForEmail): $(Build.RequestedForEmail)"
