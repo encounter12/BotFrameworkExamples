@@ -167,7 +167,6 @@ stages:
         script: |
           Write-Host "Agent.BuildDirectory: $(Agent.BuildDirectory)"
           Write-Host "Pipeline.Workspace: $(Pipeline.Workspace)"
-          Write-Host "Agent.ContainerMapping: $(Agent.ContainerMapping)"
           Write-Host "Agent.HomeDirectory: $(Agent.HomeDirectory)"
           Write-Host "Agent.Id: $(Agent.Id)"
           Write-Host "Agent.JobStatus: $(Agent.JobStatus)"
@@ -251,6 +250,7 @@ stages:
           Write-Host "TF_BUILD: $(TF_BUILD)"
 
   - deployment: DeployModels
+    dependsOn: PrintSystemVariables
     environment: bot-dev
     strategy: 
       runOnce:
