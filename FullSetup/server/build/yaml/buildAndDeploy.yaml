@@ -285,7 +285,7 @@ stages:
                 targetType: "inline"
                 script: |
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
-                  Get-ChildItem *.* –Recurse -Path $(System.ArtifactsDirectory) | Select-Object UnixMode, Name, Size
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Select-Object UnixMode, Name, Size
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory):"
                   Get-ChildItem *.* –Recurse -Path $(Build.SourcesDirectory) | Select-Object UnixMode, Name, Size
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory):"
