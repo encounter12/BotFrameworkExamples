@@ -289,7 +289,7 @@ stages:
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory):"
                   Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse | Select-Object UnixMode, Name, Size
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory):"
-                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Select-Object UnixMode, Name, Size
+                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
             - template: templates/deployModels.yaml
               parameters:
                 sourceDirectory: "$(System.ArtifactsDirectory)/drop/MyBot"
