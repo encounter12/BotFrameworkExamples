@@ -204,8 +204,6 @@ stages:
           Write-Host "Build.Repository.Git.SubmoduleCheckout: $(Build.Repository.Git.SubmoduleCheckout)"
           Write-Host "Common.TestResultsDirectory: $(Common.TestResultsDirectory)"
           Write-Host "Pipeline.Workspace: $(Pipeline.Workspace)"
-          Write-Host "Strategy.Name: $(Strategy.Name)"
-          Write-Host "Strategy.CycleName: $(Strategy.CycleName)"
           Write-Host "System.AccessToken: $(System.AccessToken)"
           Write-Host "System.CollectionId: $(System.CollectionId)"
           Write-Host "System.CollectionUri: $(System.CollectionUri)"
