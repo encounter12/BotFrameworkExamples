@@ -257,7 +257,7 @@ stages:
               inputs:
                 targetType: "inline"
                 script: |
-                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
+                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
                   Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory) - with file names:"
                   Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File
@@ -265,10 +265,10 @@ stages:
                   Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory) - with file names:"
                   Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse –File
-                  Write-Host "Display the content of System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy:"
-                  Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" -Recurse
-                  Write-Host "Display the content of System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy - with file names:"
-                  Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" -Recurse –File
+                  Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory):"
+                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse
+                  Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory) - with file names:"
+                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse –File
             - template: templates/deployModels.yaml
               parameters:
                 sourceDirectory: "$(System.ArtifactsDirectory)/drop"
