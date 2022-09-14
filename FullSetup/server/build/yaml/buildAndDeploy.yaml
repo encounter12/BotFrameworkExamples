@@ -187,7 +187,6 @@ stages:
           Write-Host "Build.QueuedBy: $(Build.QueuedBy)"
           Write-Host "Build.QueuedById: $(Build.QueuedById)"
           Write-Host "Build.Reason: $(Build.Reason)"
-          Write-Host "Build.Repository.Clean: $(Build.Repository.Clean)"
           Write-Host "Build.Repository.LocalPath: $(Build.Repository.LocalPath)"
           Write-Host "Build.Repository.ID: $(Build.Repository.ID)"
           Write-Host "Build.Repository.Name: $(Build.Repository.Name)"
