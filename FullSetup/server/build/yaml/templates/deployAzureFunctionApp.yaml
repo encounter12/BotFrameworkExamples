@@ -57,6 +57,10 @@ parameters:
   displayName: QnA Maker region
   type: string
 
+- name: artifactFilePath
+  displayName: Path to the project artifact file including the file name
+  type: string
+
 steps:
 # Deploy the function app to azure
 - task: AzureFunctionApp@1
@@ -66,7 +70,7 @@ steps:
     appName: "${{ parameters.functionAppName }}"
     appType: functionApp
     resourceGroupName: "${{ parameters.resourceGroupName }}"
-    package: "$(System.DefaultWorkingDirectory)/output/zipDeploy/*.zip"
+    package: "${{ parameters.artifactFilePath }}"
     deploymentMethod: runFromPackage
 
 # Configure function appSettings

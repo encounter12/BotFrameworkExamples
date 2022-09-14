@@ -71,12 +71,5 @@ steps:
     command: "publish"
     projects: "${{ parameters.botProjectFile }}"
     publishWebProjects: false #setting it to false to make sure only this csproj gets compiled and published.
-    arguments: "--output $(System.DefaultWorkingDirectory)/output/zipDeploy"
+    arguments: "--output $(System.DefaultWorkingDirectory)/output/zipDeploy/MyBot"
     zipAfterPublish: True
-
-# Publish output artifacts to Azure DevOps
-- task: PublishBuildArtifacts@1
-  displayName: "Publish build artifacts"
-  inputs:
-    pathtoPublish: "$(System.DefaultWorkingDirectory)/output/zipDeploy" 
-    artifactName: "BuildArtifacts-$(Build.BuildId)"

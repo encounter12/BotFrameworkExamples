@@ -142,6 +142,23 @@ stages:
         qnaKnowledgebaseId: "${{ parameters.qnaKnowledgebaseId }}"
         qnaRegion: "${{ parameters.qnaRegion }}"
 
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/${{ parameters.buildYamlDirectory }}'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(System.DefaultWorkingDirectory)/output/zipDeploy/Pipeline-Files.zip'
+        replaceExistingArchive: true
+        #verbose: # Optional
+        #quiet: # Optional
+
+    # Publish output artifacts to Azure DevOps
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish build artifacts"
+      inputs:
+        pathtoPublish: "$(System.DefaultWorkingDirectory)/output/zipDeploy" 
+        artifactName: "BuildArtifacts-$(Build.BuildId)"
+
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
       displayName: "Dir workspace"
@@ -251,7 +268,7 @@ stages:
                 archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
                 destinationFolder: '$(System.ArtifactsDirectory)/drop'
                 cleanDestinationFolder: false
-                overwriteExistingFiles: true 
+                overwriteExistingFiles: true
             - task: PowerShell@2
               displayName: "Print system variables and folder contents"
               inputs:
@@ -269,33 +286,29 @@ stages:
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory) - with file names:"
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse –File
-            - template: templates/deployModels.yaml
+            - task: deployModels
+              template: templates/deployModels.yaml
               parameters:
-                sourceDirectory: "$(System.ArtifactsDirectory)/drop"
-                yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
+                sourceDirectory: "$(System.ArtifactsDirectory)/drop/MyBot"
+                yamlDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.buildYamlDirectory }}"
                 botName: "${{ parameters.botName }}"
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
                 luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
                 qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
-  - deployment: DeployAzureFunctionApp
-    environment: bot-dev
-    dependsOn: DeployModels
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: templates/deployAzureFunctionApp.yaml
-            parameters:
-              azureServiceConnection: "${{ parameters.azureServiceConnection }}"
-              functionAppName: "${{ parameters.functionAppName }}"
-              resourceGroupName: "${{ parameters.resourceGroupName }}"
-              botName: "${{ parameters.botName }}"
-              microsoftAppId: "${{ parameters.microsoftAppId }}"
-              microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
-              luisEndpoint: "${{ parameters.luisEndpoint }}"
-              luisEndpointKey: "${{ parameters.luisEndpointKey }}"
-              qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
-              qnaEndpointKey: "${{ parameters.qnaEndpointKey }}"
-              qnaHostName: "${{ parameters.qnaHostName }}"
-              qnaKnowledgebaseId: "${{ parameters.qnaKnowledgebaseId }}"
-              qnaRegion: "${{ parameters.qnaRegion }}"
+            - task: deployAzureFunctionApp
+              template: templates/deployAzureFunctionApp.yaml
+              parameters:
+                azureServiceConnection: "${{ parameters.azureServiceConnection }}"
+                functionAppName: "${{ parameters.functionAppName }}"
+                resourceGroupName: "${{ parameters.resourceGroupName }}"
+                botName: "${{ parameters.botName }}"
+                microsoftAppId: "${{ parameters.microsoftAppId }}"
+                microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
+                luisEndpoint: "${{ parameters.luisEndpoint }}"
+                luisEndpointKey: "${{ parameters.luisEndpointKey }}"
+                qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
+                qnaEndpointKey: "${{ parameters.qnaEndpointKey }}"
+                qnaHostName: "${{ parameters.qnaHostName }}"
+                qnaKnowledgebaseId: "${{ parameters.qnaKnowledgebaseId }}"
+                qnaRegion: "${{ parameters.qnaRegion }}"
+                artifactFolder: "$(System.ArtifactsDirectory)/MyBot.zip"
