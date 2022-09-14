@@ -219,7 +219,6 @@ stages:
           Write-Host "System.PhaseName: $(System.PhaseName)"
           Write-Host "System.PlanId: $(System.PlanId)"
           Write-Host "System.PullRequest.IsFork: $(System.PullRequest.IsFork)"
-          Write-Host "System.PullRequest.PullRequestId: $(System.PullRequest.PullRequestId)"
           Write-Host "System.PullRequest.PullRequestNumber: $(System.PullRequest.PullRequestNumber)"
           Write-Host "System.PullRequest.SourceBranch: $(System.PullRequest.SourceBranch)"
           Write-Host "System.PullRequest.SourceRepositoryURI: $(System.PullRequest.SourceRepositoryURI)"
