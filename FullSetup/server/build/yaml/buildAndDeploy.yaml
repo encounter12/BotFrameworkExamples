@@ -232,14 +232,29 @@ stages:
           Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
           Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
           Get-ChildItem -Path $(Pipeline.Workspace) –Recurse
-
+    - task: 
+      
   - deployment: DeployModels
     dependsOn: PrintSystemVariables
     environment: bot-dev
     strategy: 
       runOnce:
+        preDeploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            displayName: 'Download Build Artifacts'
+            inputs:
+            patterns: '**/BuildArtifacts-$(Build.BuildId).zip'
+            path: '$(System.ArtifactsDirectory)'
+          - task: ExtractFiles@1
+            inputs:
+              archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId).zip'
+              destinationFolder: '$(System.ArtifactsDirectory)'
+              cleanDestinationFolder: false
+              overwriteExistingFiles: true 
         deploy:
           steps:
+            - download: none
             - task: PowerShell@2
               displayName: "Print system variables"
               inputs:
@@ -251,7 +266,7 @@ stages:
                   Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File
             - template: templates/deployModels.yaml
               parameters:
-                sourceDirectory: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}"
+                sourceDirectory: "$(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}"
                 yamlDirectory: "$(Build.SourcesDirectory)/${{ parameters.buildYamlDirectory }}"
                 botName: "${{ parameters.botName }}"
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
@@ -269,7 +284,7 @@ stages:
               azureServiceConnection: "${{ parameters.azureServiceConnection }}"
               functionAppName: "${{ parameters.functionAppName }}"
               resourceGroupName: "${{ parameters.resourceGroupName }}"
-              botProjectFile: "$(Build.SourcesDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
+              botProjectFile: "(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
               botName: "${{ parameters.botName }}"
               microsoftAppId: "${{ parameters.microsoftAppId }}"
               microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
