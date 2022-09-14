@@ -309,4 +309,4 @@ stages:
                 qnaHostName: "${{ parameters.qnaHostName }}"
                 qnaKnowledgebaseId: "${{ parameters.qnaKnowledgebaseId }}"
                 qnaRegion: "${{ parameters.qnaRegion }}"
-                artifactFolder: "$(System.ArtifactsDirectory)/MyBot.zip"
+                artifactFilePath: "$(System.ArtifactsDirectory)/MyBot.zip"
