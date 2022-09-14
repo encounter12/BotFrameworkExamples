@@ -254,9 +254,9 @@ stages:
           Write-Host "System.TimelineId: $(System.TimelineId)"
           Write-Host "TF_BUILD: $(TF_BUILD)"
           Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
-          Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
+          Get-ChildItem *.* –Recurse -Path  $(System.ArtifactsDirectory) | Select-Object Name, Size
           Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
-          Get-ChildItem -Path $(Pipeline.Workspace) –Recurse
+          Get-ChildItem *.* –Recurse -Path $(Pipeline.Workspace) | Select-Object Name, Size
 
   - deployment: DeployModels
     dependsOn: PrintSystemVariables
