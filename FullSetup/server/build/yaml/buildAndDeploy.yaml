@@ -163,7 +163,7 @@ stages:
       displayName: List Files Post Publish
       inputs:
         targetType: inline
-        script: Get-ChildItem
+        script: Get-ChildItem | Select-Object Name, Size
 
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
@@ -281,17 +281,17 @@ stages:
                 targetType: "inline"
                 script: |
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
-                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Select-Object Name, Size
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory) - with file names:"
-                  Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse –File | Select-Object Name, Size
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory):"
-                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse
+                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse | Select-Object Name, Size
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory) - with file names:"
-                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse –File
+                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse –File | Select-Object Name, Size
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory):"
-                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse
+                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Select-Object Name, Size
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory) - with file names:"
-                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse –File
+                  Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse –File | Select-Object Name, Size
             - template: templates/deployModels.yaml
               parameters:
                 sourceDirectory: "$(System.ArtifactsDirectory)/drop/MyBot"
