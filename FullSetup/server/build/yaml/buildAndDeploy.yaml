@@ -205,6 +205,7 @@ stages:
           Write-Host "Common.TestResultsDirectory: $(Common.TestResultsDirectory)"
           Write-Host "Pipeline.Workspace: $(Pipeline.Workspace)"
           Write-Host "System.AccessToken: $(System.AccessToken)"
+          Write-Host "System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
           Write-Host "System.CollectionId: $(System.CollectionId)"
           Write-Host "System.CollectionUri: $(System.CollectionUri)"
           Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
