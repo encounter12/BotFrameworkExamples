@@ -164,10 +164,8 @@ stages:
       inputs:
         targetType: inline
         script: |
-          Write-Host "Get children:"
-          Get-ChildItem | Select-Object Name, Size
           Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy"
-          Get-ChildItem *.* -Recurse -Path $(System.DefaultWorkingDirectory)/output/zipDeploy | Select-Object Name, Size
+          Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object Name, Size
 
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
