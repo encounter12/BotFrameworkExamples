@@ -238,22 +238,20 @@ stages:
     environment: bot-dev
     strategy: 
       runOnce:
-        preDeploy:
-          steps:
-          - task: DownloadPipelineArtifact@2
-            displayName: 'Download Build Artifacts'
-            inputs:
-              patterns: '**/*.zip'
-              path: '$(System.ArtifactsDirectory)'
-          - task: ExtractFiles@1
-            inputs:
-              archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
-              destinationFolder: '$(System.ArtifactsDirectory)'
-              cleanDestinationFolder: false
-              overwriteExistingFiles: true 
         deploy:
           steps:
             - download: none
+            - task: DownloadPipelineArtifact@2
+              displayName: 'Download Build Artifacts'
+              inputs:
+                patterns: '**/*.zip'
+                path: '$(System.ArtifactsDirectory)'
+            - task: ExtractFiles@1
+              inputs:
+                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
+                destinationFolder: '$(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}'
+                cleanDestinationFolder: false
+                overwriteExistingFiles: true 
             - task: PowerShell@2
               displayName: "Print system variables"
               inputs:
