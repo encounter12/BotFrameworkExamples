@@ -289,7 +289,6 @@ stages:
               azureServiceConnection: "${{ parameters.azureServiceConnection }}"
               functionAppName: "${{ parameters.functionAppName }}"
               resourceGroupName: "${{ parameters.resourceGroupName }}"
-              botProjectFile: "(System.ArtifactsDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
               botName: "${{ parameters.botName }}"
               microsoftAppId: "${{ parameters.microsoftAppId }}"
               microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
