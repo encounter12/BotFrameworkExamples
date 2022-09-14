@@ -232,8 +232,7 @@ stages:
           Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse
           Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
           Get-ChildItem -Path $(Pipeline.Workspace) –Recurse
-    - task: 
-      
+
   - deployment: DeployModels
     dependsOn: PrintSystemVariables
     environment: bot-dev
