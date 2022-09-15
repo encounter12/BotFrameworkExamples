@@ -166,7 +166,7 @@ stages:
         script: |
           # Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy"
           # Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object -ExpandProperty FullName UnixMode, Name, Size
-          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy :"
+          Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory)/output/zipDeploy :"
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
           
 
@@ -175,8 +175,8 @@ stages:
       inputs:
         targetType: inline
         script: |
-          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy :"
-          ls -R "$(System.DefaultWorkingDirectory)/output/zipDeploy"
+          Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
+          ls -R "$(System.DefaultWorkingDirectory)
 
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
