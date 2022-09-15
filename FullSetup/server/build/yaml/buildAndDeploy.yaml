@@ -115,7 +115,21 @@ stages:
   jobs:
   - job: buildApps
     steps:
+    - task: PowerShell@2
+      displayName: Before Install prerequisites
+      inputs:
+        targetType: inline
+        script: |
+          Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
+          Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
     - template: templates/installPrerequisites.yaml
+    - task: PowerShell@2
+      displayName: After Install prerequisites
+      inputs:
+        targetType: inline
+        script: |
+          Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
+          Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
     - template: templates/crossTrainLUISModels.yaml
       parameters:
         sourceDirectory: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}"
