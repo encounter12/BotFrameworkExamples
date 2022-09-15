@@ -160,14 +160,23 @@ stages:
         artifactName: "BuildArtifacts-$(Build.BuildId)"
 
     - task: PowerShell@2
-      displayName: List Files Post Publish
+      displayName: List Files Post Publish (Out-String -Width 160)
       inputs:
         targetType: inline
         script: |
-          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy"
-          Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object -ExpandProperty FullName UnixMode, Name, Size
-          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy - folders only:"
-          Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object UnixMode, Name, Size
+          # Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy"
+          # Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object -ExpandProperty FullName UnixMode, Name, Size
+          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy :"
+          Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
+          
+
+    - task: PowerShell@2
+      displayName: List Files Post Publish (ls -R)
+      inputs:
+        targetType: inline
+        script: |
+          Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy :"
+          ls -R "$(System.DefaultWorkingDirectory)/output/zipDeploy"
 
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
