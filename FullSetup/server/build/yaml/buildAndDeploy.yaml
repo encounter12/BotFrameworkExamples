@@ -176,7 +176,7 @@ stages:
         targetType: inline
         script: |
           Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
-          ls -R $(System.DefaultWorkingDirectory)"
+          ls -R $(System.DefaultWorkingDirectory)
 
     # Helper to output the working folder directory contents for diagnostics
     - task: PowerShell@2
