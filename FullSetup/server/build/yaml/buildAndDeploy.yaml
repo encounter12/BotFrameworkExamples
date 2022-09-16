@@ -139,6 +139,12 @@ stages:
         luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
         qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
 
+    - task: PowerShell@2
+      displayName: Before Install prerequisites
+      inputs:
+        targetType: inline
+        script: |
+         Write-Host "BotProjectFile: $(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}.csproj"
     - template: templates/buildAzureFunctionApp.yaml
       parameters:
         azureServiceConnection: "${{ parameters.azureServiceConnection }}"
