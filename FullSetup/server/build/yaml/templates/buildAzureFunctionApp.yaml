@@ -71,6 +71,6 @@ steps:
     command: "publish"
     projects: "${{ parameters.botProjectFile }}"
     publishWebProjects: false #setting it to false to make sure only this csproj gets compiled and published.
-    modifyOutputPath: false
+    modifyOutputPath: true
     arguments: "--output $(System.DefaultWorkingDirectory)/output/zipDeploy"
     zipAfterPublish: True
