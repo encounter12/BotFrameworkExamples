@@ -144,7 +144,7 @@ stages:
         azureServiceConnection: "${{ parameters.azureServiceConnection }}"
         functionAppName: "${{ parameters.functionAppName }}"
         resourceGroupName: "${{ parameters.resourceGroupName }}"
-        botProjectFile: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}"
+        botProjectFile: "$(System.DefaultWorkingDirectory)/${{ parameters.botProjectDirectory }}/${{ parameters.botProjectName }}.csproj"
         botName: "${{ parameters.botName }}"
         microsoftAppId: "${{ parameters.microsoftAppId }}"
         microsoftAppPassword: "${{ parameters.microsoftAppPassword }}"
@@ -178,8 +178,6 @@ stages:
       inputs:
         targetType: inline
         script: |
-          # Write-Host "Get System.DefaultWorkingDirectory/output/zipDeploy: $(System.DefaultWorkingDirectory)/output/zipDeploy"
-          # Get-ChildItem *.* -Recurse -Path "$(System.DefaultWorkingDirectory)/output/zipDeploy" | Select-Object -ExpandProperty FullName UnixMode, Name, Size
           Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
           
@@ -279,9 +277,9 @@ stages:
           Write-Host "System.TimelineId: $(System.TimelineId)"
           Write-Host "TF_BUILD: $(TF_BUILD)"
           Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory)"
-          Get-ChildItem *.* –Recurse -Path  $(System.ArtifactsDirectory) | Select-Object UnixMode, Name, Size
+          Get-ChildItem -Path $(System.ArtifactsDirectory) -Recurse | Out-String -Width 160
           Write-Host "Display the content of Pipeline.Workspace: $(Pipeline.Workspace)"
-          Get-ChildItem *.* –Recurse -Path $(Pipeline.Workspace) | Select-Object UnixMode, Name, Size
+          Get-ChildItem -Path $(Pipeline.Workspace) -Recurse | Out-String -Width 160
 
   - deployment: DeployModels
     dependsOn: PrintSystemVariables
@@ -308,14 +306,14 @@ stages:
                 targetType: "inline"
                 script: |
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
-                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Select-Object UnixMode, Name, Size
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Out-String -Width 160
                   Write-Host "Display the content of Build.SourcesDirectory: $(Build.SourcesDirectory):"
-                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse | Select-Object UnixMode, Name, Size
+                  Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse | Out-String -Width 160
                   Write-Host "Display the content of System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory):"
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
             - template: templates/deployModels.yaml
               parameters:
-                sourceDirectory: "$(System.ArtifactsDirectory)/drop/MyBot"
+                sourceDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.botProjectName }}"
                 yamlDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.buildYamlDirectory }}"
                 botName: "${{ parameters.botName }}"
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
