@@ -63,7 +63,7 @@ parameters:
 
 steps:
 # Build bot
-# Note: this step also packages the generated folder created by the buildAndDeployModels yaml script.
+# Note: this step also packages the generated folder created by crossTrainLUISModels.yaml script.
 # https://stackoverflow.com/questions/63788646/naming-resulting-zip-archive-in-azure-pipelines-build
 - task: DotNetCoreCLI@2
   displayName: "Build the bot publishing package"
