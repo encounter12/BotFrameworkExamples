@@ -9,7 +9,7 @@ parameters:
   displayName: Directory to the source code in the build pipeline
   type: string
 
-- name: yamlDirectory
+- name: yamlTemplatesDirectory
   displayName: Directory to the yaml files in the build pipeline
   type: string
 
@@ -36,7 +36,7 @@ steps:
   displayName: "Publish LUIS"
   inputs:
     targetType: "filePath"
-    filePath: "${{ parameters.yamlDirectory }}/templates/Build-LUIS.ps1"
+    filePath: "${{ parameters.yamlTemplatesDirectory }}/Build-LUIS.ps1"
     arguments: -outputDirectory ./generated -sourceDirectory ./ -crossTrainedLUDirectory ./generated/interruption -authoringKey ${{ parameters.luisAuthoringKey }} -authoringRegion ${{ parameters.luisAuthoringRegion }} -botName ${{ parameters.botName }} 
     # Note: the working directory needs to be set to the bot's source directory
     # to allow for the creation of relative paths in the generated config files.
@@ -61,7 +61,7 @@ steps:
   displayName: "Publish orchestrator"
   inputs:
     targetType: "filePath"
-    filePath: "${{ parameters.yamlDirectory }}/templates/Build-Orchestrator.ps1"
+    filePath: "${{ parameters.yamlTemplatesDirectory }}/Build-Orchestrator.ps1"
     arguments: -outputDirectory ./generated -sourceDirectory ./ -crossTrainedLUDirectory ./generated/interruption -appSettingsFile ./settings/appsettings.json
     # Note: the working directory needs to be set to the bot's source directory
     # to allow for the creation of relative paths in the generated config files.

@@ -164,7 +164,7 @@ stages:
 
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/${{ parameters.buildYamlDirectory }}'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/${{ parameters.buildYamlDirectory }}/templates'
         includeRootFolder: true
         archiveType: 'zip'
         archiveFile: '$(System.DefaultWorkingDirectory)/output/zipDeploy/Pipeline-Files.zip'
@@ -302,8 +302,14 @@ stages:
                 path: '$(System.ArtifactsDirectory)'
             - task: ExtractFiles@1
               inputs:
-                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/*.zip'
-                destinationFolder: '$(System.ArtifactsDirectory)/drop'
+                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/${{ parameters.botProjectName }}.zip'
+                destinationFolder: '$(System.ArtifactsDirectory)/drop/${{ parameters.botProjectName }}'
+                cleanDestinationFolder: false
+                overwriteExistingFiles: true
+            - task: ExtractFiles@1
+              inputs:
+                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/Pipeline-Files.zip'
+                destinationFolder: '$(System.ArtifactsDirectory)/drop/templates'
                 cleanDestinationFolder: false
                 overwriteExistingFiles: true
             - task: PowerShell@2
@@ -320,7 +326,7 @@ stages:
             - template: templates/deployModels.yaml
               parameters:
                 sourceDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.botProjectName }}"
-                yamlDirectory: "$(System.ArtifactsDirectory)/drop/${{ parameters.buildYamlDirectory }}"
+                yamlTemplatesDirectory: "$(System.ArtifactsDirectory)/drop/templates"
                 botName: "${{ parameters.botName }}"
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
                 luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
