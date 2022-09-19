@@ -15,100 +15,100 @@ pool:
 
 # Parameters with defaults formatted as $(name) get their values
 # from variables of that name defined in the Azure DevOps pipeline UI.
-# parameters:
-#   - name: azureServiceConnection
-#     displayName: Azure service connection
-#     type: string
-#     default: $(AZURESERVICECONNECTION)
+parameters:
+  - name: azureServiceConnection
+    displayName: Azure service connection
+    type: string
+    default: $(AZURESERVICECONNECTION)
 
-#   - name: botName
-#     displayName: Bot name
-#     type: string
-#     default: $(BOTNAME)
+  - name: botName
+    displayName: Bot name
+    type: string
+    default: $(BOTNAME)
 
-#   - name: microsoftAppId
-#     displayName: Bot"s Microsoft app ID
-#     type: string
-#     default: $(MICROSOFTAPPID)
+  - name: microsoftAppId
+    displayName: Bot"s Microsoft app ID
+    type: string
+    default: $(MICROSOFTAPPID)
 
-#   - name: microsoftAppPassword
-#     displayName: Bot"s Microsoft app password
-#     type: string
-#     default: $(MICROSOFTAPPPASSWORD)
+  - name: microsoftAppPassword
+    displayName: Bot"s Microsoft app password
+    type: string
+    default: $(MICROSOFTAPPPASSWORD)
 
-#   - name: resourceGroupName
-#     displayName: Azure resource group
-#     type: string
-#     default: $(RESOURCEGROUPNAME)
+  - name: resourceGroupName
+    displayName: Azure resource group
+    type: string
+    default: $(RESOURCEGROUPNAME)
 
-#   - name: functionAppName
-#     displayName: Azure function app name
-#     type: string
-#     default: $(FUNCTIONAPPNAME)
+  - name: functionAppName
+    displayName: Azure function app name
+    type: string
+    default: $(FUNCTIONAPPNAME)
 
-#   - name: botProjectDirectory
-#     displayName: Relative path to the bot's csproj file (e.g. BasicAssistant/BasicAssistant)
-#     type: string
-#     default: $(BOTPROJECTDIRECTORY)
+  - name: botProjectDirectory
+    displayName: Relative path to the bot's csproj file (e.g. BasicAssistant/BasicAssistant)
+    type: string
+    default: $(BOTPROJECTDIRECTORY)
 
-#   - name: botProjectName
-#     displayName: Bot"s project name (csproj)
-#     type: string
-#     default: $(BOTPROJECTNAME)
+  - name: botProjectName
+    displayName: Bot"s project name (csproj)
+    type: string
+    default: $(BOTPROJECTNAME)
 
-#   - name: buildYamlDirectory
-#     displayName: Relative path to the pipeline's .yaml folder (e.g. build/yaml)
-#     type: string
-#     default: $(BUILDYAMLDIRECTORY)
+  - name: buildYamlDirectory
+    displayName: Relative path to the pipeline's .yaml folder (e.g. build/yaml)
+    type: string
+    default: $(BUILDYAMLDIRECTORY)
 
-#   # LUIS Parameters
-#   # LUIS Authoring (used to build, train and publish LUIS models)
-#   - name: luisAuthoringKey
-#     displayName: LUIS authoring key
-#     type: string
-#     default: $(LUISAUTHORINGKEY)
+  # LUIS Parameters
+  # LUIS Authoring (used to build, train and publish LUIS models)
+  - name: luisAuthoringKey
+    displayName: LUIS authoring key
+    type: string
+    default: $(LUISAUTHORINGKEY)
 
-#   - name: luisAuthoringRegion
-#     displayName: LUIS authoring region
-#     type: string
-#     default: $(LUISAUTHORINGREGION)
+  - name: luisAuthoringRegion
+    displayName: LUIS authoring region
+    type: string
+    default: $(LUISAUTHORINGREGION)
 
-#   # LUIS Runtime (used to access LUIS while the bot is running)
-#   - name: luisEndpoint
-#     displayName: LUIS endpoint
-#     type: string
-#     default: $(LUISENDPOINT)
+  # LUIS Runtime (used to access LUIS while the bot is running)
+  - name: luisEndpoint
+    displayName: LUIS endpoint
+    type: string
+    default: $(LUISENDPOINT)
 
-#   - name: luisEndpointKey
-#     displayName: LUIS endpoint key
-#     type: string
-#     default: $(LUISENDPOINTKEY)
+  - name: luisEndpointKey
+    displayName: LUIS endpoint key
+    type: string
+    default: $(LUISENDPOINTKEY)
 
-#   # QnAMaker parameters
-#   - name: qnaSubscriptionKey
-#     displayName: QnA Maker subscription key
-#     type: string
-#     default: $(QNASUBSCRIPTIONKEY)
+  # QnAMaker parameters
+  - name: qnaSubscriptionKey
+    displayName: QnA Maker subscription key
+    type: string
+    default: $(QNASUBSCRIPTIONKEY)
 
-#   - name: qnaEndpointKey
-#     displayName: QnA Maker endpoint key
-#     type: string
-#     default: $(QNAENDPOINTKEY)
+  - name: qnaEndpointKey
+    displayName: QnA Maker endpoint key
+    type: string
+    default: $(QNAENDPOINTKEY)
 
-#   - name: qnaHostName
-#     displayName: QnA Maker host name
-#     type: string
-#     default: $(QNAHOSTNAME)
+  - name: qnaHostName
+    displayName: QnA Maker host name
+    type: string
+    default: $(QNAHOSTNAME)
 
-#   - name: qnaKnowledgebaseId
-#     displayName: QnA Maker knowledgebase ID
-#     type: string
-#     default: $(QNAKNOWLEDGEBASEID)
+  - name: qnaKnowledgebaseId
+    displayName: QnA Maker knowledgebase ID
+    type: string
+    default: $(QNAKNOWLEDGEBASEID)
 
-#   - name: qnaRegion
-#     displayName: QnA Maker region
-#     type: string
-#     default: $(QNAREGION)
+  - name: qnaRegion
+    displayName: QnA Maker region
+    type: string
+    default: $(QNAREGION)
 
 stages:
 - stage: BuildStage
