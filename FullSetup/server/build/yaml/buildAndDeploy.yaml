@@ -347,6 +347,15 @@ stages:
                 script: |
                   Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
                   Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Out-String -Width 160
+            - task: ArchiveFiles@2
+              inputs:
+                rootFolderOrFile: '$(System.ArtifactsDirectory)/drop/${{ parameters.botProjectName }}'
+                includeRootFolder: false
+                archiveType: 'zip'
+                archiveFile: '$(System.ArtifactsDirectory)/output/zipDeploy/${{ parameters.botProjectName }}.zip'
+                replaceExistingArchive: true
+                #verbose: # Optional
+                #quiet: # Optional
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
                 azureServiceConnection: "${{ parameters.azureServiceConnection }}"
@@ -362,4 +371,4 @@ stages:
                 qnaHostName: "${{ parameters.qnaHostName }}"
                 qnaKnowledgebaseId: "${{ parameters.qnaKnowledgebaseId }}"
                 qnaRegion: "${{ parameters.qnaRegion }}"
-                artifactFilePath: "$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/${{ parameters.botProjectName }}.zip"
+                artifactFilePath: "$(System.ArtifactsDirectory)/output/zipDeploy/${{ parameters.botProjectName }}.zip"
