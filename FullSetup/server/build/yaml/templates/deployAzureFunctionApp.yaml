@@ -5,9 +5,9 @@
 # 
 
 parameters:
-# - name: azureServiceConnection
-#   displayName: Azure Service Connection
-#   type: string
+- name: azureServiceConnection
+  displayName: Azure Service Connection
+  type: string
 
 - name: functionAppName
   displayName: Azure function app name
@@ -66,7 +66,7 @@ steps:
 - task: AzureFunctionApp@1
   displayName: "Deploy Azure Function App: ${{ parameters.functionAppName }}"
   inputs:
-    azureSubscription: $(AzureServiceConnection)
+    azureSubscription: "${{ azureServiceConnection }}"
     appName: "${{ parameters.functionAppName }}"
     appType: functionApp
     resourceGroupName: "${{ parameters.resourceGroupName }}"
@@ -77,7 +77,7 @@ steps:
 - task: AzureAppServiceSettings@1
   displayName: "Configure App Service Settings"
   inputs:
-    azureSubscription: $(AzureServiceConnection)
+    azureSubscription: "${{ azureServiceConnection }}"
     appName: "${{ parameters.functionAppName }}"
     # To deploy the settings on a slot, provide slot name as below (e.g: slotName: staging). 
     # By default, the settings would be applied to the actual Function App (Production slot) 

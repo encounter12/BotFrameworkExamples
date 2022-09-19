@@ -15,11 +15,11 @@ pool:
 
 # Parameters with defaults formatted as $(name) get their values
 # from variables of that name defined in the Azure DevOps pipeline UI.
-# parameters:
-#   - name: azureServiceConnection
-#     displayName: Azure service connection
-#     type: string
-#     default: $(AZURESERVICECONNECTION)
+parameters:
+  - name: azureServiceConnection
+    displayName: Azure service connection
+    type: string
+    default: $(AZURESERVICECONNECTION)
 
 #   - name: botName
 #     displayName: Bot name
@@ -360,6 +360,7 @@ stages:
                 #quiet: # Optional
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
+                azureServiceConnection: "$(AZURESERVICECONNECTION)"
                 functionAppName: $functionAppName)
                 resourceGroupName: $(resourceGroupName)
                 botName: $(botName)
