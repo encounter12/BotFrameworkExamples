@@ -165,7 +165,7 @@ stages:
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/${{ parameters.buildYamlDirectory }}/templates'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(System.DefaultWorkingDirectory)/output/zipDeploy/Pipeline-Files.zip'
         replaceExistingArchive: true
