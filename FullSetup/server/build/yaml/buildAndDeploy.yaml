@@ -292,19 +292,17 @@ stages:
     environment: bot-dev
     strategy: 
       runOnce:
-        preDeploy:
-          steps:
-          - task: NodeTool@0
-            displayName: 'Use Node 13.x'
-            inputs:
-              versionSpec: 13.x
-          - task: Npm@1
-            displayName: 'Use BF CLI'
-            inputs:
-              command: 'custom'
-              customCommand: 'install -g @microsoft/botframework-cli'
         deploy:
           steps:
+            - task: NodeTool@0
+              displayName: 'Use Node 13.x'
+              inputs:
+                versionSpec: 13.x
+            - task: Npm@1
+              displayName: 'Use BF CLI'
+              inputs:
+                command: 'custom'
+                customCommand: 'install -g @microsoft/botframework-cli'
             - download: none
             - task: DownloadPipelineArtifact@2
               displayName: 'Download Build Artifacts'
