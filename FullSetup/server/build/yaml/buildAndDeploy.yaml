@@ -151,7 +151,7 @@ stages:
          Write-Host "BotProjectFile: $(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
     - template: templates/buildAzureFunctionApp.yaml
       parameters:
-        azureServiceConnection: "${{ AzureServiceConnection }}"
+        azureServiceConnection: $(AzureServiceConnection)
         functionAppName: $(functionAppName)
         resourceGroupName: $(resourceGroupName)
         botProjectFile: "$(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
