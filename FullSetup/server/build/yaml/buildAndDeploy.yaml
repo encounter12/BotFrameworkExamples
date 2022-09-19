@@ -134,12 +134,12 @@ stages:
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
     - template: templates/crossTrainLUISModels.yaml
       parameters:
-        sourceDirectory: "$(System.DefaultWorkingDirectory)/${{ botProjectDirectory }}"
-        yamlDirectory: "$(System.DefaultWorkingDirectory)/${{ buildYamlDirectory }}"
-        botName: "${{ botName }}"
-        luisAuthoringKey: "${{ luisAuthoringKey }}"
-        luisAuthoringRegion: "${{ luisAuthoringRegion }}"
-        qnaSubscriptionKey: "${{ qnaSubscriptionKey }}"
+        sourceDirectory: "$(System.DefaultWorkingDirectory)/$(botProjectDirectory)"
+        yamlDirectory: "$(System.DefaultWorkingDirectory)/$(buildYamlDirectory)"
+        botName: $(botName)
+        luisAuthoringKey: $(luisAuthoringKey)
+        luisAuthoringRegion: $(luisAuthoringRegion)
+        qnaSubscriptionKey: $(qnaSubscriptionKey)
 
     - task: PowerShell@2
       displayName: Before Install prerequisites
