@@ -146,27 +146,27 @@ stages:
       inputs:
         targetType: inline
         script: |
-         Write-Host "BotProjectFile: $(System.DefaultWorkingDirectory)/${{ botProjectDirectory }}/${{ botProjectName }}.csproj"
+         Write-Host "BotProjectFile: $(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
     - template: templates/buildAzureFunctionApp.yaml
       parameters:
-        azureServiceConnection: "${{ azureServiceConnection }}"
-        functionAppName: "${{ functionAppName }}"
-        resourceGroupName: "${{ resourceGroupName }}"
-        botProjectFile: "$(System.DefaultWorkingDirectory)/${{ botProjectDirectory }}/${{ botProjectName }}.csproj"
-        botName: "${{ botName }}"
-        microsoftAppId: "${{ microsoftAppId }}"
-        microsoftAppPassword: "${{ microsoftAppPassword }}"
-        luisEndpoint: "${{ luisEndpoint }}"
-        luisEndpointKey: "${{ luisEndpointKey }}"
-        qnaSubscriptionKey: "${{ qnaSubscriptionKey }}"
-        qnaEndpointKey: "${{ qnaEndpointKey }}"
-        qnaHostName: "${{ qnaHostName }}"
-        qnaKnowledgebaseId: "${{ qnaKnowledgebaseId }}"
-        qnaRegion: "${{ qnaRegion }}"
+        azureServiceConnection: $(azureServiceConnection)
+        functionAppName: $(functionAppName)
+        resourceGroupName: $(resourceGroupName)
+        botProjectFile: "$(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
+        botName: $(botName)
+        microsoftAppId: $(microsoftAppId)
+        microsoftAppPassword: $(microsoftAppPassword)
+        luisEndpoint: $(luisEndpoint)
+        luisEndpointKey: $(luisEndpointKey)
+        qnaSubscriptionKey: $(qnaSubscriptionKey)
+        qnaEndpointKey: $(qnaEndpointKey)
+        qnaHostName: $(qnaHostName)
+        qnaKnowledgebaseId: $(qnaKnowledgebaseId)
+        qnaRegion: $(qnaRegion)
 
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/${{ buildYamlDirectory }}/templates'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/$(buildYamlDirectory)/templates'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(System.DefaultWorkingDirectory)/output/zipDeploy/Pipeline-Files.zip'
@@ -313,8 +313,8 @@ stages:
                 path: '$(System.ArtifactsDirectory)'
             - task: ExtractFiles@1
               inputs:
-                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/${{ botProjectName }}.zip'
-                destinationFolder: '$(System.ArtifactsDirectory)/drop/${{ botProjectName }}'
+                archiveFilePatterns: '$(System.ArtifactsDirectory)/BuildArtifacts-$(Build.BuildId)/$(botProjectName).zip'
+                destinationFolder: '$(System.ArtifactsDirectory)/drop/$(botProjectName)'
                 cleanDestinationFolder: false
                 overwriteExistingFiles: true
             - task: ExtractFiles@1
@@ -336,12 +336,12 @@ stages:
                   Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
             - template: templates/deployModels.yaml
               parameters:
-                sourceDirectory: "$(System.ArtifactsDirectory)/drop/${{ botProjectName }}"
+                sourceDirectory: "$(System.ArtifactsDirectory)/drop/$(botProjectName)"
                 yamlTemplatesDirectory: "$(System.ArtifactsDirectory)/drop/templates"
-                botName: "${{ botName }}"
-                luisAuthoringKey: "${{ luisAuthoringKey }}"
-                luisAuthoringRegion: "${{ luisAuthoringRegion }}"
-                qnaSubscriptionKey: "${{ qnaSubscriptionKey }}"
+                botName: $(botName)
+                luisAuthoringKey: $(luisAuthoringKey)
+                luisAuthoringRegion: $(luisAuthoringRegion)
+                qnaSubscriptionKey: $(qnaSubscriptionKey)
             - task: PowerShell@2
               displayName: "Print system variables and folder contents"
               inputs:
@@ -351,26 +351,26 @@ stages:
                   Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Out-String -Width 160
             - task: ArchiveFiles@2
               inputs:
-                rootFolderOrFile: '$(System.ArtifactsDirectory)/drop/${{ botProjectName }}'
+                rootFolderOrFile: '$(System.ArtifactsDirectory)/drop/$(botProjectName)'
                 includeRootFolder: false
                 archiveType: 'zip'
-                archiveFile: '$(System.ArtifactsDirectory)/output/zipDeploy/${{ botProjectName }}.zip'
+                archiveFile: '$(System.ArtifactsDirectory)/output/zipDeploy/$(botProjectName).zip'
                 replaceExistingArchive: true
                 #verbose: # Optional
                 #quiet: # Optional
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
-                azureServiceConnection: "${{ azureServiceConnection }}"
-                functionAppName: "${{ functionAppName }}"
-                resourceGroupName: "${{ resourceGroupName }}"
-                botName: "${{ botName }}"
-                microsoftAppId: "${{ microsoftAppId }}"
-                microsoftAppPassword: "${{ microsoftAppPassword }}"
-                luisEndpoint: "${{ luisEndpoint }}"
-                luisEndpointKey: "${{ luisEndpointKey }}"
-                qnaSubscriptionKey: "${{ qnaSubscriptionKey }}"
-                qnaEndpointKey: "${{ qnaEndpointKey }}"
-                qnaHostName: "${{ qnaHostName }}"
-                qnaKnowledgebaseId: "${{ qnaKnowledgebaseId }}"
-                qnaRegion: "${{ qnaRegion }}"
-                artifactFilePath: "$(System.ArtifactsDirectory)/output/zipDeploy/${{ botProjectName }}.zip"
+                azureServiceConnection: $(azureServiceConnection)
+                functionAppName: $functionAppName)
+                resourceGroupName: $(resourceGroupName)
+                botName: $(botName)
+                microsoftAppId: $(microsoftAppId)
+                microsoftAppPassword: $(microsoftAppPassword)
+                luisEndpoint: $(luisEndpoint)
+                luisEndpointKey: $(luisEndpointKey)
+                qnaSubscriptionKey: $(qnaSubscriptionKey)
+                qnaEndpointKey: $(qnaEndpointKey)
+                qnaHostName: $(qnaHostName)
+                qnaKnowledgebaseId: $(qnaKnowledgebaseId)
+                qnaRegion: $(qnaRegion)
+                artifactFilePath: "$(System.ArtifactsDirectory)/output/zipDeploy/$(botProjectName).zip"
