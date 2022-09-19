@@ -114,8 +114,6 @@ stages:
 - stage: BuildStage
   variables:
   - group: bot-dev-ivo-dev
-  - name: "AzureServiceConnection"
-    value: "MSBotServiceConnection"
   jobs:
   - job: buildApps
     steps:
@@ -214,8 +212,6 @@ stages:
 - stage: DeployDevStage
   variables:
   - group: bot-dev-ivo-dev
-  - name: "AzureServiceConnection"
-    value: "MSBotServiceConnection"
   dependsOn: BuildStage
   jobs:
   - job: PrintSystemVariables
@@ -360,8 +356,6 @@ stages:
                 archiveType: 'zip'
                 archiveFile: '$(System.ArtifactsDirectory)/output/zipDeploy/$(botProjectName).zip'
                 replaceExistingArchive: true
-                #verbose: # Optional
-                #quiet: # Optional
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
                 azureServiceConnection: $(AzureServiceConnection)
