@@ -360,7 +360,6 @@ stages:
                 #quiet: # Optional
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
-                azureServiceConnection: "$(AZURESERVICECONNECTION)"
                 functionAppName: $functionAppName)
                 resourceGroupName: $(resourceGroupName)
                 botName: $(botName)
