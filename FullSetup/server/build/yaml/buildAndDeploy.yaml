@@ -365,7 +365,7 @@ stages:
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
                 azureServiceConnection: $(AzureServiceConnection)
-                functionAppName: $functionAppName)
+                functionAppName: $(functionAppName)
                 resourceGroupName: $(resourceGroupName)
                 botName: $(botName)
                 microsoftAppId: $(microsoftAppId)
