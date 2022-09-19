@@ -212,6 +212,8 @@ stages:
 - stage: DeployDevStage
   variables:
   - group: bot-dev-ivo-dev
+  name: AzureServiceConnection
+  value: "MSBotServiceConnection"
   dependsOn: BuildStage
   jobs:
   - job: PrintSystemVariables
