@@ -340,6 +340,13 @@ stages:
                 luisAuthoringKey: "${{ parameters.luisAuthoringKey }}"
                 luisAuthoringRegion: "${{ parameters.luisAuthoringRegion }}"
                 qnaSubscriptionKey: "${{ parameters.qnaSubscriptionKey }}"
+            - task: PowerShell@2
+              displayName: "Print system variables and folder contents"
+              inputs:
+                targetType: "inline"
+                script: |
+                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
+                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Out-String -Width 160
             - template: templates/deployAzureFunctionApp.yaml
               parameters:
                 azureServiceConnection: "${{ parameters.azureServiceConnection }}"
