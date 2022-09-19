@@ -114,6 +114,8 @@ stages:
 - stage: BuildStage
   variables:
   - group: bot-dev-ivo-dev
+  - name: "AzureServiceConnection"
+    value: "MSBotServiceConnection"
   jobs:
   - job: buildApps
     steps:
