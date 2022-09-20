@@ -1,32 +1,6 @@
-﻿# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License.
-#
-# Builds, deploys and train language models (LUIS, QnA Maker and Orchestrator)
-#
-
-parameters:
+﻿parameters:
 - name: sourceDirectory
   displayName: Directory to the source code in the build pipeline
-  type: string
-
-- name: yamlDirectory
-  displayName: Directory to the yaml files in the build pipeline
-  type: string
-
-- name: botName
-  displayName: Bot name
-  type: string
-
-- name: luisAuthoringKey
-  displayName: LUIS authoring key
-  type: string
-
-- name: luisAuthoringRegion
-  displayName: LUIS authoring region
-  type: string
-
-- name: qnaSubscriptionKey
-  displayName: QnA Maker subscription key
   type: string
 
 steps:

@@ -1,11 +1,3 @@
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License.
-# 
-# Builds and trains LUIS models. Used in conjunction with CICD, performs the following:
-#  - Determines what models to build based on the recognizer configured for each dialog and writes a luConfig file with the list
-#  - Builds Orchestrator language models (english and multilingual) snapshot files
-#  - Creates configuration file used by runtime (orchestrator.settings.json)
-
 Param(
 	[string] $outputDirectory,
 	[string] $sourceDirectory,

@@ -1,9 +1,3 @@
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License.
-# 
-# Contains language understanding functions used in other scripts.
-#
-
 # Given directory with lu files, crawls the bot's sourceDirectory to find the recognizers for them 
 # and returns a new list of luModels that match the given recognizer kind.
 function Get-LUModels
@@ -42,16 +36,6 @@ function Get-LUModels
         {
             continue
         }
-
-        <#
-        if ([string]::IsNullOrEmpty($luDialog))
-        {
-            $errorMessage =
-                "Cross trained lu model: $luModel without lu recognizer dialog detected. The issue might be that you have removed a dialog, but it's folder and files are still present. If so, please delete them."
-            
-            throw $errorMessage
-        }
-        #>
 
         $dialog = Get-Content -Path "$sourceDirectory/$luDialog" | ConvertFrom-Json
         $recognizerKind = ($dialog | Select -ExpandProperty "`$kind")
