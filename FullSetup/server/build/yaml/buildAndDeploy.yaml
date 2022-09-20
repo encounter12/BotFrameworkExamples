@@ -342,6 +342,11 @@ stages:
                 luisAuthoringKey: $(luisAuthoringKey)
                 luisAuthoringRegion: $(luisAuthoringRegion)
                 qnaSubscriptionKey: $(qnaSubscriptionKey)
+            - task: FileTransform@1
+              inputs:
+                folderPath: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.development.json" 
+                fileType: json
+                targetFiles: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.json"
             - task: PowerShell@2
               displayName: "Print system variables and folder contents"
               inputs:

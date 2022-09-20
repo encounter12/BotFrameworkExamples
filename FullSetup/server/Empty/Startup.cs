@@ -42,7 +42,7 @@ namespace Empty
 
             configurationBuilder.ConfigurationBuilder
                 .AddJsonFile(Path.Combine(context.ApplicationRootPath, $"{settingsDirectory}/mysettings.json"), optional: true, reloadOnChange: true)
-                //.AddJsonFile(Path.Combine(context.ApplicationRootPath, $"{settingsDirectory}/mysettings.{context.EnvironmentName}.json"), optional: true, reloadOnChange: true)
+                //.AddJsonFile(Path.Combine(context.ApplicationRootPath, $"{settingsDirectory}/mysettings.{environmentName}.json"), optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
             configurationBuilder.ConfigurationBuilder.AddBotRuntimeConfiguration(
