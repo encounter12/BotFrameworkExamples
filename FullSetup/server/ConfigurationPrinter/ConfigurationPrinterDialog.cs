@@ -4,6 +4,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using ConfigurationPrinter.models;
+using ConfigurationPrinter.services;
 
 namespace ConfigurationPrinter;
 
@@ -40,13 +41,14 @@ public class ConfigurationPrinterDialog : Dialog
         DialogContext dc, object options,
         CancellationToken cancellationToken = default(CancellationToken))
     {
-        JustSettingsOptions justSettingsOptions = dc.Services.Get<IOptions<JustSettingsOptions>>().Value;
+        IConfigurationService configurationService = dc.Services.Get<IConfigurationService>();
+        string justName = configurationService.JustName;
 
         if (this.ResultProperty != null)
         {
-            dc.State.SetValue(this.ResultProperty.GetValue(dc.State), justSettingsOptions.JustName);
+            dc.State.SetValue(this.ResultProperty.GetValue(dc.State), justName);
         }
 
-        return dc.EndDialogAsync(result: justSettingsOptions.JustName, cancellationToken: cancellationToken);
+        return dc.EndDialogAsync(result: justName, cancellationToken: cancellationToken);
     }
 }

@@ -42,6 +42,20 @@
                   "activity": "${SendActivity_Greeting()}"
                 },
                 {
+                  "$kind": "ConfigurationPrinterDialog",
+                  "$designer": {
+                    "id": "2wEHzl"
+                  },
+                  "resultProperty": "dialog.result"
+                },
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "ajV0jY"
+                  },
+                  "activity": "${SendActivity_ajV0jY()}"
+                },
+                {
                   "$kind": "Microsoft.BeginDialog",
                   "$designer": {
                     "id": "OjowYw"

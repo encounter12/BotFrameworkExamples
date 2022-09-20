@@ -22,3 +22,10 @@
 
 # SendActivity_VTt66Q_text()
 - SearchForJobs trigger invoked
+# SendActivity_ajV0jY()
+[Activity
+    Text = ${SendActivity_ajV0jY_text()}
+]
+
+# SendActivity_ajV0jY_text()
+- The JustName value is: ${dialog.result}
