@@ -342,18 +342,34 @@ stages:
                 luisAuthoringKey: $(luisAuthoringKey)
                 luisAuthoringRegion: $(luisAuthoringRegion)
                 qnaSubscriptionKey: $(qnaSubscriptionKey)
-            - task: FileTransform@1
+            - task: DeleteFiles@1
               inputs:
-                folderPath: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.development.json" 
-                fileType: json
-                targetFiles: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.json"
+                SourceFolder: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings"
+                Contents: "mysettings.json"
+            # - task: FileTransform@1
+            #   inputs:
+            #     folderPath: "$(System.ArtifactsDirectory)/drop/$(botProjectName)" 
+            #     fileType: json
+            #     targetFiles: "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.json"
             - task: PowerShell@2
               displayName: "Print system variables and folder contents"
               inputs:
                 targetType: "inline"
                 script: |
-                  Write-Host "Display the content of System.ArtifactsDirectory: $(System.ArtifactsDirectory):"
-                  Get-ChildItem -Path $(System.ArtifactsDirectory) –Recurse | Out-String -Width 160
+                  Write-Host "Display the content of System.ArtifactsDirectory)/drop/botProjectName/settings: $(System.ArtifactsDirectory)/drop/$(botProjectName)/settings:"
+                  Get-ChildItem -Path "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings" –Recurse | Out-String -Width 160
+            - task: PowerShell@2
+              displayName: 'Copy Specific Config'
+              inputs:
+                targetType: inline
+                script: Copy-Item -Path "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.development.json" -Destination "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings/mysettings.json"
+            - task: PowerShell@2
+              displayName: "Print system variables and folder contents"
+              inputs:
+                targetType: "inline"
+                script: |
+                  Write-Host "Display the content of System.ArtifactsDirectory)/drop/botProjectName/settings: $(System.ArtifactsDirectory)/drop/$(botProjectName)/settings:"
+                  Get-ChildItem -Path "$(System.ArtifactsDirectory)/drop/$(botProjectName)/settings" –Recurse | Out-String -Width 160
             - task: ArchiveFiles@2
               inputs:
                 rootFolderOrFile: '$(System.ArtifactsDirectory)/drop/$(botProjectName)'
