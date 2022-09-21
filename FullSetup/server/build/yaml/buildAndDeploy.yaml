@@ -53,6 +53,7 @@ stages:
         replaceExistingArchive: true
     
     # Publish output artifacts to Azure DevOps
+    # just a comment
     - task: PublishBuildArtifacts@1
       displayName: "Publish build artifacts"
       inputs:
