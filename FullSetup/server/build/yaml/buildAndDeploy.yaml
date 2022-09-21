@@ -18,7 +18,9 @@ stages:
         script: |
           Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
+    
     - template: templates/installPrerequisites.yaml
+
     - task: PowerShell@2
       displayName: After Install prerequisites
       inputs:
@@ -26,33 +28,22 @@ stages:
         script: |
           Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
+    
     - template: templates/crossTrainLUISModels.yaml
       parameters:
         sourceDirectory: "$(System.DefaultWorkingDirectory)/$(botProjectDirectory)"
-
+    
     - task: PowerShell@2
       displayName: Before Install prerequisites
       inputs:
         targetType: inline
         script: |
          Write-Host "BotProjectFile: $(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
+    
     - template: templates/buildAzureFunctionApp.yaml
       parameters:
-        azureServiceConnection: $(AzureServiceConnection)
-        functionAppName: $(functionAppName)
-        resourceGroupName: $(resourceGroupName)
         botProjectFile: "$(System.DefaultWorkingDirectory)/$(botProjectDirectory)/$(botProjectName).csproj"
-        botName: $(botName)
-        microsoftAppId: $(microsoftAppId)
-        microsoftAppPassword: $(microsoftAppPassword)
-        luisEndpoint: $(luisEndpoint)
-        luisEndpointKey: $(luisEndpointKey)
-        qnaSubscriptionKey: $(qnaSubscriptionKey)
-        qnaEndpointKey: $(qnaEndpointKey)
-        qnaHostName: $(qnaHostName)
-        qnaKnowledgebaseId: $(qnaKnowledgebaseId)
-        qnaRegion: $(qnaRegion)
-
+    
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/$(buildYamlDirectory)/templates'
@@ -60,16 +51,14 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(System.DefaultWorkingDirectory)/output/zipDeploy/Pipeline-Files.zip'
         replaceExistingArchive: true
-        #verbose: # Optional
-        #quiet: # Optional
-
+    
     # Publish output artifacts to Azure DevOps
     - task: PublishBuildArtifacts@1
       displayName: "Publish build artifacts"
       inputs:
         pathtoPublish: "$(System.DefaultWorkingDirectory)/output/zipDeploy" 
         artifactName: "BuildArtifacts-$(Build.BuildId)"
-
+    
     - task: PowerShell@2
       displayName: List Files Post Publish (Out-String -Width 160)
       inputs:
@@ -77,8 +66,7 @@ stages:
         script: |
           Write-Host "Get System.DefaultWorkingDirectory content: $(System.DefaultWorkingDirectory):"
           Get-ChildItem -Path $(System.DefaultWorkingDirectory) -Recurse | Out-String -Width 160
-          
-
+    
     - task: PowerShell@2
       displayName: List Files Post Publish (ls -R)
       inputs:
@@ -266,7 +254,6 @@ stages:
                 azureServiceConnection: $(AzureServiceConnection)
                 functionAppName: $(functionAppName)
                 resourceGroupName: $(resourceGroupName)
-                botName: $(botName)
                 microsoftAppId: $(microsoftAppId)
                 microsoftAppPassword: $(microsoftAppPassword)
                 luisEndpoint: $(luisEndpoint)

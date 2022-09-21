@@ -1,58 +1,6 @@
 parameters:
-- name: azureServiceConnection
-  displayName: Azure Service Connection
-  type: string
-
-- name: functionAppName
-  displayName: Azure function app name
-  type: string
-
-- name: resourceGroupName
-  displayName: Resource group
-  type: string
-
 - name: botProjectFile
   displayName: Bot project to build and deploy
-  type: string
-
-- name: botName
-  displayName: Bot name
-  type: string
-
-- name: microsoftAppId
-  displayName: Bot's Microsoft app ID
-  type: string
-
-- name: microsoftAppPassword
-  displayName: Bot's Microsoft app Password
-  type: string
-
-- name: luisEndpoint
-  displayName: LUIS endpoint
-  type: string
-
-- name: luisEndpointKey
-  displayName: LUIS endpoint key
-  type: string
-
-- name: qnaSubscriptionKey
-  displayName: QnA Maker subscription key
-  type: string
-
-- name: qnaEndpointKey
-  displayName: QnA Maker endpoint key
-  type: string
-
-- name: qnaHostName
-  displayName: QnA Maker host name
-  type: string
-
-- name: qnaKnowledgebaseId
-  displayName: QnA Maker knowledgebase ID
-  type: string
-
-- name: qnaRegion
-  displayName: QnA Maker region
   type: string
 
 steps:

@@ -11,10 +11,6 @@ parameters:
   displayName: Resource group
   type: string
 
-- name: botName
-  displayName: Bot name
-  type: string
-
 - name: microsoftAppId
   displayName: Bot's Microsoft app ID
   type: string
